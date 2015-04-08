@@ -44,14 +44,15 @@ public class BaseDAO<T> {
 		return em.find(clz, id);
 	}
 	
-	public List<T> query(Class<T> clz, String scope, List paras) {
-		Query query = em.createQuery("FROM" + clz + "WHERE" + scope);
-		int parameterIndex = 0;
-        if (paras != null && paras.size() > 0) {  
-            for (Object obj : paras) {  
-                query.setParameter(parameterIndex++, obj);  
-            }  
-        }
+	public List<T> query(String scope, List paramName, List paras) {
+		Query query = em.createQuery(scope);
+		if (paras != null && paras.size() > 0) {  
+	        int i = 0;
+	        for (Object obj : paras) {
+	        	query.setParameter(String.valueOf(paramName.get(i)), obj);
+	            ++i;
+	        }  
+	    }
         return query.getResultList();
 	}
 	
