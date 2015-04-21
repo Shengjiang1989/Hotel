@@ -86,4 +86,11 @@ public class UserManagementService {
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
 		return hoteluserDAO.getHoteluserById(hotelUserId);
 	}
+	
+	public Boolean verifyUser(String email, String password) {
+		if(email.equals("yangjue1031@foxmail.com") && password.equals("aa"))
+		return true;
+		else 
+			return false;
+	}
 }
