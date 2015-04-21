@@ -50,7 +50,7 @@ public class HotelDAO {
 	}
 	
 	public List<Hotel> getHotelByName(String hotelName, int hotelUserId) {
-		String scope = "select h from Hotel h where h.huId = ?huId AND h.hotelname = :hotelname";
+		String scope = "select h from Hotel h where h.huId = :huId AND h.hotelname = :hotelname";
 		ArrayList<Object> paras = new ArrayList<Object>();
 		paras.add(hotelUserId);
 		paras.add(hotelName);
