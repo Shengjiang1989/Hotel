@@ -39,7 +39,7 @@ public class Hotel implements Serializable {
 	private String state;
 
 	//bi-directional many-to-one association to Amenity
-	@OneToMany(mappedBy="hotel")
+	@OneToMany(mappedBy="hotel", cascade = CascadeType.ALL)
 	private List<Amenity> amenities;
 
 	//bi-directional many-to-one association to Hoteluser
@@ -48,15 +48,15 @@ public class Hotel implements Serializable {
 	private Hoteluser hoteluser;
 
 	//bi-directional many-to-one association to Roomtype
-	@OneToMany(mappedBy="hotel")
+	@OneToMany(mappedBy="hotel", cascade = CascadeType.ALL)
 	private List<Roomtype> roomtypes;
 
 	//bi-directional many-to-one association to Service
-	@OneToMany(mappedBy="hotel")
+	@OneToMany(mappedBy="hotel", cascade = CascadeType.ALL)
 	private List<Service> services;
 
 	//bi-directional many-to-one association to Surrounding
-	@OneToMany(mappedBy="hotel")
+	@OneToMany(mappedBy="hotel", cascade = CascadeType.ALL)
 	private List<Surrounding> surroundings;
 
 	public Hotel() {

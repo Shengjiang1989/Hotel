@@ -17,18 +17,15 @@ public class Facility implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
-	private int amount;
-
-	private String description;
-
-	private String facilityName;
-
-	private byte ifCharge;
-
 	//bi-directional many-to-one association to Roomtype
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="rtId")
 	private Roomtype roomtype;
+	
+	//bi-directional many-to-one association to Roomtype
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="fcId")
+	private Facilityconfig facilityconfig;
 
 	public Facility() {
 	}
@@ -41,44 +38,20 @@ public class Facility implements Serializable {
 		this.id = id;
 	}
 
-	public int getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getFacilityName() {
-		return this.facilityName;
-	}
-
-	public void setFacilityName(String facilityName) {
-		this.facilityName = facilityName;
-	}
-
-	public byte getIfCharge() {
-		return this.ifCharge;
-	}
-
-	public void setIfCharge(byte ifCharge) {
-		this.ifCharge = ifCharge;
-	}
-
 	public Roomtype getRoomtype() {
 		return this.roomtype;
 	}
 
 	public void setRoomtype(Roomtype roomtype) {
 		this.roomtype = roomtype;
+	}
+
+	public Facilityconfig getFacilityconfig() {
+		return facilityconfig;
+	}
+
+	public void setFacilityconfig(Facilityconfig facilityconfig) {
+		this.facilityconfig = facilityconfig;
 	}
 
 }

@@ -17,4 +17,9 @@ public class HoteluserDAO {
 		baseDAO.create(hoteluser);
 	}
 
+	public Hoteluser getHoteluserById(int hotelUserId) {
+		// TODO Auto-generated method stub
+		return baseDAO.getById(Hoteluser.class, hotelUserId);
+	}
+
 }

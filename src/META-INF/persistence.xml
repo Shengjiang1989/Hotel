@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 <persistence-unit name="HotelBooking" transaction-type="RESOURCE_LOCAL">
 <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 <class>edu.neu.cs5200.hotel.main.entity.Admin</class>
@@ -13,6 +13,9 @@
 <class>edu.neu.cs5200.hotel.main.entity.Service</class>
 <class>edu.neu.cs5200.hotel.main.entity.Surrounding</class>
 <class>edu.neu.cs5200.hotel.main.entity.Occupier</class>
+<class>edu.neu.cs5200.hotel.main.entity.Serviceconfig</class>
+<class>edu.neu.cs5200.hotel.main.entity.Amenityconfig</class>
+        <class>edu.neu.cs5200.hotel.main.entity.Facilityconfig</class>
 <properties>
 <property name="eclipselink.jdbc.password" value=""/>
 <property name="eclipselink.jdbc.user" value="root"/>

@@ -1,6 +1,5 @@
 package edu.neu.cs5200.hotel.main.entity;
 
-import java.io.Serializable;
 import javax.persistence.*;
 
 
@@ -10,23 +9,21 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Service.findAll", query="SELECT s FROM Service s")
-public class Service implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Service  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
-	private String description;
-
-	private byte ifCharge;
-
-	private String serviceName;
-
-	//bi-directional many-to-one association to Hotel
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="hId")
 	private Hotel hotel;
+
+	private String ifcharge;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="scId")
+	private Serviceconfig serviceconfig;
 
 	public Service() {
 	}
@@ -39,36 +36,28 @@ public class Service implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public String getIfcharge() {
+		return this.ifcharge;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public byte getIfCharge() {
-		return this.ifCharge;
-	}
-
-	public void setIfCharge(byte ifCharge) {
-		this.ifCharge = ifCharge;
-	}
-
-	public String getServiceName() {
-		return this.serviceName;
-	}
-
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
+	public void setIfcharge(String ifcharge) {
+		this.ifcharge = ifcharge;
 	}
 
 	public Hotel getHotel() {
-		return this.hotel;
+		return hotel;
 	}
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public Serviceconfig getServiceconfig() {
+		return serviceconfig;
+	}
+
+	public void setServiceconfig(Serviceconfig serviceconfig) {
+		this.serviceconfig = serviceconfig;
 	}
 
 }

@@ -16,14 +16,15 @@ public class Amenity implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
-	private String amenityName;
-
-	private String description;
-
-	private byte ifCharge;
+	
+	private String ifCharge;
 
 	private String openTime;
+	
+	//bi-directional many-to-one association to Hotel
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="acId")
+	private Amenityconfig amenityconfig;
 
 	//bi-directional many-to-one association to Hotel
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -41,27 +42,11 @@ public class Amenity implements Serializable {
 		this.id = id;
 	}
 
-	public String getAmenityName() {
-		return this.amenityName;
-	}
-
-	public void setAmenityName(String amenityName) {
-		this.amenityName = amenityName;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public byte getIfCharge() {
+	public String getIfCharge() {
 		return this.ifCharge;
 	}
 
-	public void setIfCharge(byte ifCharge) {
+	public void setIfCharge(String ifCharge) {
 		this.ifCharge = ifCharge;
 	}
 
@@ -79,6 +64,14 @@ public class Amenity implements Serializable {
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public Amenityconfig getAmenityconfig() {
+		return amenityconfig;
+	}
+
+	public void setAmenityconfig(Amenityconfig amenityconfig) {
+		this.amenityconfig = amenityconfig;
 	}
 
 }

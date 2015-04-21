@@ -1,8 +1,8 @@
 package edu.neu.cs5200.hotel.main.entity;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.*;
 
 
 /**
@@ -11,8 +11,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Roomtype.findAll", query="SELECT r FROM Roomtype r")
-public class Roomtype implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Roomtype  {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,26 +21,25 @@ public class Roomtype implements Serializable {
 
 	private String description;
 
-	private float price;
-
-	private String typeName;
-
-	//bi-directional many-to-one association to Facility
-	@OneToMany(mappedBy="roomtype")
-	private List<Facility> facilities;
-
-	//bi-directional many-to-one association to Reservation
-	@OneToMany(mappedBy="roomtype")
-	private List<Reservation> reservations;
-
-	//bi-directional many-to-one association to Hotel
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="hId")
 	private Hotel hotel;
+	
+	//bi-directional one-to-many association to Facility
+	@OneToMany(mappedBy="roomtype", cascade = CascadeType.ALL)
+	private List<Facility> facility;
 
-	//bi-directional many-to-one association to Occupier
-	@OneToMany(mappedBy="roomtype")
-	private List<Occupier> occupiers;
+	private float price;
+
+	private String typename;
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 
 	public Roomtype() {
 	}
@@ -78,86 +76,20 @@ public class Roomtype implements Serializable {
 		this.price = price;
 	}
 
-	public String getTypeName() {
-		return this.typeName;
+	public String getTypename() {
+		return this.typename;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setTypename(String typename) {
+		this.typename = typename;
 	}
 
-	public List<Facility> getFacilities() {
-		return this.facilities;
-	}
-
-	public void setFacilities(List<Facility> facilities) {
-		this.facilities = facilities;
-	}
-
-	public Facility addFacility(Facility facility) {
-		getFacilities().add(facility);
-		facility.setRoomtype(this);
-
+	public List<Facility> getFacility() {
 		return facility;
 	}
 
-	public Facility removeFacility(Facility facility) {
-		getFacilities().remove(facility);
-		facility.setRoomtype(null);
-
-		return facility;
-	}
-
-	public List<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
-	public Reservation addReservation(Reservation reservation) {
-		getReservations().add(reservation);
-		reservation.setRoomtype(this);
-
-		return reservation;
-	}
-
-	public Reservation removeReservation(Reservation reservation) {
-		getReservations().remove(reservation);
-		reservation.setRoomtype(null);
-
-		return reservation;
-	}
-
-	public Hotel getHotel() {
-		return this.hotel;
-	}
-
-	public void setHotel(Hotel hotel) {
-		this.hotel = hotel;
-	}
-
-	public List<Occupier> getOccupiers() {
-		return this.occupiers;
-	}
-
-	public void setOccupiers(List<Occupier> occupiers) {
-		this.occupiers = occupiers;
-	}
-
-	public Occupier addOccupier(Occupier occupier) {
-		getOccupiers().add(occupier);
-		occupier.setRoomtype(this);
-
-		return occupier;
-	}
-
-	public Occupier removeOccupier(Occupier occupier) {
-		getOccupiers().remove(occupier);
-		occupier.setRoomtype(null);
-
-		return occupier;
+	public void setFacility(List<Facility> facility) {
+		this.facility = facility;
 	}
 
 }

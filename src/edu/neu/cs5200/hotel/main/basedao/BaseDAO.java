@@ -35,7 +35,9 @@ public class BaseDAO<T> {
 	
 	public Boolean delete(T object) {
 		if (em.contains(object)) {
+			em.getTransaction().begin();
 			em.remove(object);
+			em.getTransaction().commit();
 			return true;
 		}else return false;
 	}
