@@ -25,11 +25,11 @@ public class HotelDAO {
 	public List<Hotel> getAllHotel(int hotelUserId) {
 		// TODO Auto-generated method stub
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
-		ArrayList<Integer> paras = new ArrayList<Integer>();
-		paras.add(hotelUserId);
-		ArrayList<String> paramName = new ArrayList<String>();
-		paramName.add("huId");
-		baseDAO.query("SELECT * FROM HOTEL WHERE huId =?huId", paramName, paras);
+		//ArrayList<Integer> paras = new ArrayList<Integer>();
+		//paras.add(hotelUserId);
+		//ArrayList<String> paramName = new ArrayList<String>();
+		//paramName.add("huId");
+		//baseDAO.query("SELECT * FROM HOTEL WHERE huId =?huId", paramName, paras);
 		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hotelUserId);
 		return hoteluser.getHotels();
 	}
