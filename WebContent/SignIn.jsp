@@ -47,6 +47,10 @@
   	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
   	  	dispatcher.forward(request, response);
   	}
+  	else if(ifExist) {
+  	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
+  	  	dispatcher.forward(request, response);
+  	}
   %>
 
 	<div class="container">
@@ -66,14 +70,12 @@
 				</label> <label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio2" value="Customer">
 					Customer
-				</label> <label class="radio-inline"> <input type="radio"
-					name="userType" id="inlineRadio3" value="Admin"> Admin
-				</label>
+				</label> 
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 				in</button>
 		</form>
-		<a href=""><button type="button" 
+		<a href="signUp.jsp"><button type="button" 
 					class="btn btn-link">sign up</button></a>
 	</div>
 	<!-- /container -->
