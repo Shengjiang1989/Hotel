@@ -32,6 +32,8 @@ public class Roomtype  {
 	private float price;
 
 	private String typename;
+	
+	private String imageURL;
 
 	public Hotel getHotel() {
 		return hotel;
@@ -90,6 +92,14 @@ public class Roomtype  {
 
 	public void setFacility(List<Facility> facility) {
 		this.facility = facility;
+	}
+
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
 }

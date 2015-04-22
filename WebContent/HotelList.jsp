@@ -11,8 +11,18 @@
 <body>
 	<div align="left" class="container">
 		<%
-			HotelManagementService hms = new HotelManagementService();
+		HotelManagementService hms = new HotelManagementService();
+		String action = request.getParameter("action");
+		String hotelId = request.getParameter("id");
+		String hoteluserId = request.getParameter("hoteluserId");
+		if("delete".equals(action)) {
+			if(hotelId != null && hotelId != "" && hoteluserId != null && hoteluserId != "") {
+				hms.deleteHotel(Integer.parseInt(hotelId), Integer.parseInt(hoteluserId));
+			}
+		}
 			List<Hotel> hotels = hms.getAllHotels(1);
+			
+
 		%>
 		<h1 align="center">Hotels</h1>
 		<a href="createHotel.jsp" type="button" class="btn btn-success pull-right">Create</a>
@@ -24,6 +34,7 @@
     			<th align = "center">Country</th>
     			<th align = "center">Description</th>
     			<th align = "center">Action</th>
+    			<th align = "center">&nbsp;</th>
   			</tr>
 		<%
 			for(Hotel hotel: hotels) 
@@ -36,7 +47,10 @@
 				<td><%=  hotel.getCountry()%></td>
 				<td><%=  hotel.getDescription()%></td>
 				<td>
-					<a href="HotelList.jsp?action=delete&id=<%= hotel.getId() %>">Delete</a>
+					<a href="HotelList.jsp?action=delete&&hoteluserId=1&id=<%= hotel.getId() %>">Delete</a>
+				</td>
+				<td>
+					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">view</a>
 				</td>
 			</tr>
 		<%	

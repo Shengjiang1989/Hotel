@@ -70,8 +70,8 @@
 					name="userType" id="inlineRadio3" value="Admin"> Admin
 				</label>
 			</div>
-			<a href="<%=request.getAttribute("if") %>"><button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button></a>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+				in</button>
 		</form>
 		<a href=""><button type="button" 
 					class="btn btn-link">sign up</button></a>

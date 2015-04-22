@@ -16,6 +16,10 @@ public class HoteluserDAO {
 		// TODO Auto-generated method stub
 		baseDAO.create(hoteluser);
 	}
+	
+	public void updateHoteluser(Hoteluser hoteluser) {
+		baseDAO.update(hoteluser);
+	}
 
 	public Hoteluser getHoteluserById(int hotelUserId) {
 		// TODO Auto-generated method stub
