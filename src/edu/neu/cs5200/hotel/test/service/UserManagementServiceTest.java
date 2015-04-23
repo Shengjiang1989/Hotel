@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import edu.neu.cs5200.hotel.main.dao.CustomerDAO;
 import edu.neu.cs5200.hotel.main.entity.Customer;
 import edu.neu.cs5200.hotel.main.service.UserManagementService;
 
@@ -32,6 +33,8 @@ public class UserManagementServiceTest {
 		customer.setRegDate(date);
 		customer.setTelephone("556-789-000");
 		customer.setUsername("Jue");
-		ums.deleteCustomer(customer );
+		CustomerDAO dao=new CustomerDAO();
+		dao.createCustomer(customer);
+//		ums.deleteCustomer(customer );
 	}
 }

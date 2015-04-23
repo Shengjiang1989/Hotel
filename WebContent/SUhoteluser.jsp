@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="edu.neu.cs5200.hotel.main.basedao.*,edu.neu.cs5200.hotel.main.dao.*,edu.neu.cs5200.hotel.main.entity.*, java.text.*,java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,23 +9,46 @@
 </head>
 <body>
 <div class="container">
+	<%
+	String action=request.getParameter("action");
+	String ssn=request.getParameter("ssn");
+	String pw=request.getParameter("password");
+	String un=request.getParameter("username");
+	if("create".equals(action)){
+	Hoteluser hoteluser = new Hoteluser();
+	hoteluser.setPassword(pw);
+	hoteluser.setUsername(un);
+	hoteluser.setSsn(ssn);
+	hoteluser.setRegDate(new Date());
+// 	String str_date="2015-04-08";
+// 	DateFormat formatter ; 
+// 	Date date = new Date(); 
+// 	   formatter = new SimpleDateFormat("yyyy-MM-dd");
+// 	   try {
+// 		date = formatter.parse(str_date);
+// 	} catch (ParseException e) {
+// 		// TODO Auto-generated catch block
+// 		e.printStackTrace();
+// 	}
+	HoteluserDAO dao=new HoteluserDAO();
+	dao.createHoteluser(hoteluser);
+	}
+	%>
 	
 
 	<h1>
 	Sign Up
 	</h1>
-		<form action="singUp.jsp">
+		<form action="SUhoteluser.jsp">
 		<table class="table table-striped">
 			<tr>
 				<th>password</th>
-				<th>regDate</th>
 				<th>ssn</th>
 				<th>username</th>
 				<th>&nbsp;</th>
 		 	</tr>
 		 	<tr>
 		 		<td><input name="password" class="form-control"/></td>
-		 		<td><input name="regDate" class="form-control"/></td>
 		 		<td><input name="ssn" class="form-control"/></td>
 		 		<td><input name="username" class="form-control"/></td>
 		 		<td>

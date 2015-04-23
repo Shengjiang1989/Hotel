@@ -1,7 +1,9 @@
 package edu.neu.cs5200.hotel.main.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +38,7 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy="customer")
 	private List<Reservation> reservations;
 
-	public Customer() {
-	}
+
 
 	public int getId() {
 		return this.id;
