@@ -1,6 +1,7 @@
 package edu.neu.cs5200.hotel.main.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.neu.cs5200.hotel.main.basedao.BaseDAO;
@@ -58,5 +59,23 @@ public class HotelDAO {
 		paramName.add("huId");
 		paramName.add("hotelname");
 		return this.baseDAO.query(scope, paramName, paras);
+	}
+
+	public List<Hotel> getHotelBySearch(String city, String country) {
+		// TODO Auto-generated method stub
+		String scope = "select h from Hotel h where h.city = :city AND h.country = :country";
+		ArrayList<Object> paras = new ArrayList<Object>();
+		paras.add(city);
+		paras.add(country);
+		ArrayList<String> paramName = new ArrayList<String>();
+		paramName.add("city");
+		paramName.add("country");
+		return this.baseDAO.query(scope, paramName, paras);
+	}
+
+	public List<Hotel> getHotelBySearchByDate(String city, String country,
+			Date checkinDate, Date checkoutDate) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

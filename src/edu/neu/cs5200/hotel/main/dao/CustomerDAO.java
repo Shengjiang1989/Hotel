@@ -16,7 +16,7 @@ public class CustomerDAO {
 	}
 	
 	public List<Customer> getAllCustomer() {
-		String scope = "SELECT c FROM Customer c";
+		String scope = "SELECT s FROM Customer s";
 		return baseDAO.query(scope, null, null);
 	}
 	

@@ -1,6 +1,7 @@
 package edu.neu.cs5200.hotel.main.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import edu.neu.cs5200.hotel.main.entity.Hoteluser;
 import edu.neu.cs5200.hotel.main.entity.Roomtype;
 import edu.neu.cs5200.hotel.main.entity.Service;
 import edu.neu.cs5200.hotel.main.entity.Serviceconfig;
+import edu.neu.cs5200.hotel.main.util.Conversion;
 
 public class HotelManagementService {
 	
@@ -172,4 +174,28 @@ public class HotelManagementService {
 		HotelDAO hotelDAO = new HotelDAO();
 		return hotelDAO.getHotelByName(hotelName, hotelUserId);
 	}
+	
+	public List<Hotel> getHotelBySearch(HttpServletRequest request) {
+		HotelDAO hotelDAO = new HotelDAO();
+		String city = request.getParameter("city");
+		String country = request.getParameter("country");
+		String checkin_monthday = request.getParameter("checkin_monthday");
+		String checkin_year_month = request.getParameter("checkin_year_month");
+		String checkout_monthday = request.getParameter("checkout_monthday");
+		String checkout_year_month = request.getParameter("checkout_year_month");
+		String idf = request.getParameter("idf");
+		Date checkinDate = new Date();
+		Date checkoutDate = new Date();
+		if (checkin_monthday != "" && checkin_year_month != "" 
+				&& checkout_monthday != "" && checkout_year_month != "") {
+			checkinDate = Conversion.string2Date(checkin_year_month + "-" + checkin_monthday);
+			checkoutDate = Conversion.string2Date(checkout_year_month + "-" + checkout_monthday);
+		}
+		if(idf != null && "on".equals(idf)) {
+			return hotelDAO.getHotelBySearch(city, country);
+		}else {
+			return hotelDAO.getHotelBySearchByDate(city, country, checkinDate, checkoutDate);
+		}
+	}
+	
 }

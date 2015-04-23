@@ -50,7 +50,7 @@
 					<a href="HotelList.jsp?action=delete&&hoteluserId=1&id=<%= hotel.getId() %>">Delete</a>
 				</td>
 				<td>
-					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">view</a>
+					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">View</a>
 				</td>
 			</tr>
 		<%	
