@@ -50,5 +50,11 @@ public class HoteluserDAO {
 		String scope = "SELECT h FROM Hoteluser h";
 		return this.baseDAO.query(scope, null, null);
 	}
+	public void deleteHoteluserByUsername(Hoteluser hoteluser) 
+	{
+		// TODO Auto-generated method stub
+		hoteluser = baseDAO.getById(Hoteluser.class, hoteluser.getId());
+		baseDAO.delete(hoteluser);
+	}
 
 }
