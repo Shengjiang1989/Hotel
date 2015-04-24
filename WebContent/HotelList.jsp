@@ -13,12 +13,12 @@
 		<%
 		HotelManagementService hms = new HotelManagementService();
 		String action = request.getParameter("action");
-		String hotelId = request.getParameter("id");
+		Integer hotelId = (Integer)request.getSession().getAttribute("hoteluserId");
 		String hoteluserId = request.getParameter("hoteluserId");
 		if("delete".equals(action)) {
-			if(hotelId != null && hotelId != "" && hoteluserId != null && hoteluserId != "") {
-				hms.deleteHotel(Integer.parseInt(hotelId), Integer.parseInt(hoteluserId));
-			}
+			
+				hms.deleteHotel(hotelId, Integer.parseInt(hoteluserId));
+			
 		}
 			List<Hotel> hotels = hms.getAllHotels(1);
 			

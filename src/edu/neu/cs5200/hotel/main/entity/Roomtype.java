@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Roomtype.findAll", query="SELECT r FROM Roomtype r")
 public class Roomtype  {
-
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -28,6 +28,9 @@ public class Roomtype  {
 	//bi-directional one-to-many association to Facility
 	@OneToMany(mappedBy="roomtype", cascade = CascadeType.ALL)
 	private List<Facility> facility;
+	
+	@OneToMany(mappedBy="roomtype", cascade = CascadeType.ALL)
+	private List<Reservation> reservation;
 
 	private float price;
 
@@ -100,6 +103,18 @@ public class Roomtype  {
 
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public List<Reservation> getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(List<Reservation> reservation) {
+		this.reservation = reservation;
 	}
 
 }

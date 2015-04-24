@@ -70,6 +70,9 @@
   			if(ifExistHoteluser) 
   			{
   	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
+  	  		HoteluserDAO hoteluserDAO = new HoteluserDAO();
+  	  		Hoteluser hoteluser = hoteluserDAO.readHoteluserByUsernameAndPassword(username, password);
+  	  		request.getSession().setAttribute("hoteluserId", hoteluser.getId());
   	  		dispatcher.forward(request, response);
   			}
 		}

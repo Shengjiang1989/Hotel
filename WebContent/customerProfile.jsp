@@ -98,7 +98,7 @@ customer = customerDAO.getCustomerById(cId);
     			<th align = "center">Number of rooms</th>
     			<th align = "center">Hotel name</th>
     			<th align = "center">Room Type</th>
-    			<th align = "center">&nbsp;</th>
+    			<th align = "center">Review</th>
   			</tr>
 		<%
 			for(Reservation reservation: reservations) 
@@ -115,8 +115,13 @@ customer = customerDAO.getCustomerById(cId);
 				<td><%=  reservation.getGuestNumber()%></td>
 				<td><%=  reservation.getRoomAmount()%></td>
 				<td><%=  hotelname%></td>
-				<td><%=  roomtype.getTypename()%></td>
-				<td><img src="<%= roomtype.getImageURL() %>" style="float:left;margin-right:10px"/></td>
+				<td><%=  roomtype.getTypename()%>
+				<img src="<%= roomtype.getImageURL() %>" style="float:left;margin-right:10px"/></td>
+				<%if(reservation.getReview() != "" & reservation.getReview() != null) {%>
+					<td><%= reservation.getReview()%></td>
+				<%} else {%>
+					<td><a href="comment.jsp?id=<%= reservation.getId() %>">Add review</a></td>
+				<%} %>
 			</tr>
 		<%	
 			}

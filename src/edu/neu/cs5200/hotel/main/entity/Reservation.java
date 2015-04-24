@@ -24,7 +24,7 @@ public class Reservation implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date checkoutDate;
 
-	private String description;
+	private String review;
 
 	private int guestNumber;
 
@@ -73,12 +73,12 @@ public class Reservation implements Serializable {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public String getReview() {
+		return this.review;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setReview(String review) {
+		this.review = review;
 	}
 
 	public int getGuestNumber() {
