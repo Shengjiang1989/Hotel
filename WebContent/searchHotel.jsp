@@ -240,10 +240,10 @@
 				<td><%=  hotel.getCountry()%></td>
 				<td><%=  hotel.getDescription()%></td>
 				<td>
-					<a href="HotelList.jsp?action=delete&&hoteluserId=1&id=<%= hotel.getId() %>">Delete</a>
+					<a href="hotelInfo.jsp?id=<%= hotel.getId() %>">View</a>
 				</td>
 				<td>
-					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">View</a>
+					<a href="order.jsp?id=<%= hotel.getId() %>">Order</a>
 				</td>
 			</tr>
 		<%	
