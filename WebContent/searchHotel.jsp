@@ -26,7 +26,7 @@
 			<div class="navbar-form navbar-right">
 				<button type="submit" name="action" value="search"
 					class="btn btn-success">Search</button>
-				<a href=""><button type="button" class="btn btn-link"><u><%=customer.getUsername() %></u></button></a>
+				<a href="customerProfile.jsp"><button type="button" class="btn btn-link"><u><%=customer.getUsername() %></u></button></a>
 			</div>
 			</nav>
 		</div>

@@ -69,7 +69,7 @@
 		{
   			if(ifExistHoteluser) 
   			{
-  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/createHotel.jsp");
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
   	  		dispatcher.forward(request, response);
   			}
 		}

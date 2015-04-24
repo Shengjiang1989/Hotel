@@ -44,7 +44,7 @@
 					<div class="navbar-form navbar-right">
 						<a href="searchHotel.jsp"><button type="button"
 								class="btn btn-link">Return to search</button></a>
-						<a href=""><button
+						<a href="customerProfile.jsp"><button
 						type="button" class="btn btn-link">
 						<u><%=customer.getUsername()%></u>
 					</button></a>
@@ -61,6 +61,7 @@
 
 			</div>
 
+		</div>
 		</div>
 </body>
 </html>

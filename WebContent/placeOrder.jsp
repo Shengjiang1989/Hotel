@@ -72,7 +72,7 @@
 				<button type="submit" name="action" value="create"
 					class="btn btn-success">Place Order</button>
 				<a href="searchHotel.jsp"><button type="button"
-						class="btn btn-link">return</button></a> <a href=""><button
+						class="btn btn-link">return</button></a> <a href="customerProfile.jsp"><button
 						type="button" class="btn btn-link">
 						<u><%=customer.getUsername()%></u>
 					</button></a>
