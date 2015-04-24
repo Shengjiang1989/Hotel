@@ -37,12 +37,15 @@
 	<%
 	String signIn= request.getParameter("action");
 	String IfCustomer= request.getParameter("userType");
+	String IfHoteluser= request.getParameter("userType");
+	String IfAdmin= request.getParameter("userType");
   	String Username = request.getParameter("Username");
   	String password = request.getParameter("password");
   	String userTpye = request.getParameter("userType");
   	UserManagementService userManagementService = new UserManagementService();
   	Boolean ifExistCustomer  = userManagementService.verifyCustomer(Username,password);
   	Boolean ifExistHoteluser  = userManagementService.verifyHoteluser(Username,password);
+	Boolean ifExistAdmin  = userManagementService.verifyAdmin(Username,password);
 //   	if(email != null && password != null) {
 //   		ifExist = userManagementService.verifyUser(email, password);
 //   	}
@@ -57,13 +60,24 @@
   			}
 		}
 	}
-	if("HotelUser".equals(IfCustomer))
+	if("HotelUser".equals(IfHoteluser))
 	{
 		if("signIn".equals(signIn))
 		{
   			if(ifExistHoteluser) 
   			{
   	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/createHotel.jsp");
+  	  		dispatcher.forward(request, response);
+  			}
+		}
+	}
+	if("Admin".equals(IfAdmin))
+	{
+		if("signIn".equals(signIn))
+		{
+  			if(ifExistAdmin) 
+  			{
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin.jsp");
   	  		dispatcher.forward(request, response);
   			}
 		}
@@ -88,9 +102,14 @@
 				<label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio1" value="HotelUser"> Hotel
 					User
-				</label> <label class="radio-inline"> <input type="radio"
+				</label> 
+				<label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio2" value="Customer">
 					Customer
+				</label> 
+				<label class="radio-inline"> <input type="radio"
+					name="userType" id="inlineRadio3" value="Admin">
+					Admin
 				</label> 
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit" name="action" value="signIn">Sign

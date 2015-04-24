@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import edu.neu.cs5200.hotel.main.dao.AdminDAO;
 import edu.neu.cs5200.hotel.main.dao.CustomerDAO;
+import edu.neu.cs5200.hotel.main.entity.Admin;
 import edu.neu.cs5200.hotel.main.entity.Customer;
 import edu.neu.cs5200.hotel.main.service.UserManagementService;
 
@@ -35,14 +37,15 @@ public class UserManagementServiceTest {
 		customer.setRegDate(date);
 		customer.setTelephone("556-789-000");
 		customer.setUsername("Jue");
-		CustomerDAO dao=new CustomerDAO();
-		dao.createCustomer(customer);
+		AdminDAO dao=new AdminDAO();
+//		dao.createCustomer(customer);
 //		ums.deleteCustomer(customer );
-		Customer customers = dao.readCustomerByUsernameAndPassword("Jue","12345");
-		List <Customer> cus=new ArrayList<Customer>();
-		cus.add(customers);
+		Admin admin = dao.readAdminByUsernameAndPassword("12345678","12345678");
+		List <Admin> cus=new ArrayList<Admin>();
+		cus.add(admin);
 		System.out.println(cus.size());
-		System.out.println(customer.getFirstName());
+		System.out.println(admin.getSponsorAccount());
+//		System.out.println(admin.getUsername());
 		
 	}
 }
