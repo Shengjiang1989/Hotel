@@ -186,10 +186,13 @@ public class HotelManagementService {
 		String idf = request.getParameter("idf");
 		Date checkinDate = new Date();
 		Date checkoutDate = new Date();
+		if (checkin_monthday != null && checkin_year_month != null 
+				&& checkout_monthday != null && checkout_year_month != null) {
 		if (!"0".equals(checkin_monthday) && !"0".equals(checkin_year_month) 
 				&& !"0".equals(checkout_monthday) && !"0".equals(checkout_year_month)) {
 			checkinDate = Conversion.string2Date(checkin_year_month + "-" + checkin_monthday);
 			checkoutDate = Conversion.string2Date(checkout_year_month + "-" + checkout_monthday);
+		}
 		}
 		if((idf != null && "on".equals(idf)) || "0".equals(checkin_monthday) ||
 				"0".equals(checkin_year_month) || "0".equals(checkout_monthday)

@@ -29,6 +29,10 @@ public class CustomerDAO {
 		baseDAO.create(customer);
 	}
 	
+	public Customer getCustomerById(int id) {
+		return baseDAO.getById(Customer.class, id);
+	}
+	
 	/**
 	 * Retrieve a customer from database by its primary key id
 	 * @param id -- Primary key id of a customer

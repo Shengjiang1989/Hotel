@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="edu.neu.cs5200.hotel.main.service.*, edu.neu.cs5200.hotel.main.entity.*, java.util.*"%>
+	import="edu.neu.cs5200.hotel.main.service.*, 
+	edu.neu.cs5200.hotel.main.entity.*, java.util.*,
+	edu.neu.cs5200.hotel.main.dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,21 +13,32 @@
 </head>
 <body>
 	<%
+
+		String action = request.getParameter("action");
 		String hotelId = request.getParameter("id");
 		HotelManagementService hotelManagementService = new HotelManagementService();
 		Hotel hotel = new Hotel();
 		if (hotelId != null && hotelId != "") {
-			hotel = hotelManagementService.getHotelById(Integer.parseInt(hotelId));
+			hotel = hotelManagementService.getHotelById(Integer
+					.parseInt(hotelId));
 		}
+		Customer customer = new Customer();
+		Integer cId = (Integer)request.getSession().getAttribute("customerId");
+		CustomerDAO customerDAO = new CustomerDAO();
+		customer = customerDAO.getCustomerById(cId);
+
 	%>
+	
+	<form action="placeOrder.jsp">
 	<div class="header clearfix">
 		<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="navbar-header" align="center">
 			<p class="navbar-brand">Hotel Information</p>
 		</div>
 		<div class="navbar-form navbar-right">
-			<a href="HotelList.jsp"><button type="button"
+			<a href="searchHotel.jsp?"><button type="button"
 					class="btn btn-link">return</button></a>
+			<a href=""><button type="button" class="btn btn-link"><u><%=customer.getUsername() %></u></button></a>
 		</div>
 		</nav>
 	</div>
@@ -49,11 +62,11 @@
 					<th>Address</th>
 				</tr>
 				<tr>
-					<td><%=hotel.getHotelName() %></td>
-					<td><%=hotel.getCity() %></td>
-					<td><%=hotel.getCountry() %></td>
-					<td><%=hotel.getState() %></td>
-					<td><%=hotel.getAddress() %></td>
+					<td><%=hotel.getHotelName()%></td>
+					<td><%=hotel.getCity()%></td>
+					<td><%=hotel.getCountry()%></td>
+					<td><%=hotel.getState()%></td>
+					<td><%=hotel.getAddress()%></td>
 				</tr>
 				<tr>
 					<th>Star</th>
@@ -62,10 +75,10 @@
 					<th>Description</th>
 				</tr>
 				<tr>
-					<td><%=hotel.getStar() %></td>
-					<td><%=hotel.getCheckinTime() %></td>
-					<td><%=hotel.getCheckoutTime() %></td>
-					<td><%=hotel.getDescription() %></td>
+					<td><%=hotel.getStar()%></td>
+					<td><%=hotel.getCheckinTime()%></td>
+					<td><%=hotel.getCheckoutTime()%></td>
+					<td><%=hotel.getDescription()%></td>
 				</tr>
 			</table>
 		</div>
@@ -83,19 +96,26 @@
 					<div class="col-md-4">
 						<h4>Hotel Services</h4>
 						<ul>
-							<% for(Service service : services) { %>
-							<li><%=service.getServiceconfig().getServiceName() %> <em><%=service.getIfcharge() %></em></li>
-							<%} %>
+							<%
+								for (Service service : services) {
+							%>
+							<li><%=service.getServiceconfig().getServiceName()%> <em><%=service.getIfcharge()%></em></li>
+							<%
+								}
+							%>
 						</ul>
 					</div>
 					<div class="col-md-4">
 						<h4>Hotel Amenities</h4>
 						<ul>
-							<% for(Amenity amenity : amenities) { %>
-							<li><%=amenity.getAmenityconfig().getAmenityName() %> 
-								  <em><%=amenity.getIfCharge() %></em>
-								  <em><%=amenity.getOpenTime() %></em></li>
-							<%} %>
+							<%
+								for (Amenity amenity : amenities) {
+							%>
+							<li><%=amenity.getAmenityconfig().getAmenityName()%> <em><%=amenity.getIfCharge()%></em>
+								<em><%=amenity.getOpenTime()%></em></li>
+							<%
+								}
+							%>
 						</ul>
 					</div>
 				</div>
@@ -105,7 +125,6 @@
 			<!-- /container -->
 		</div>
 	</div>
-
 	<div class="jumbotron">
 		<div class="container">
 			<table class="table table-striped">
@@ -119,39 +138,57 @@
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
 				</tr>
 				<tr>
 					<th>Name</th>
 					<th>Price</th>
 					<th>Amount</th>
-					<th>Image</th>
 					<th>Description</th>
 					<th>Facilities</th>
+					<th>Nr. rooms</th>
 				</tr>
-				<% for(Roomtype roomtype : roomtypes) { 
-					List<Facility> facilities = roomtype.getFacility();
+				<%
+					for (Roomtype roomtype : roomtypes) {
+						List<Facility> facilities = roomtype.getFacility();
 				%>
 				<tr>
-					<td><%= roomtype.getTypename() %></td>
-					<td><%= roomtype.getPrice() %></td>
-					<td><%= roomtype.getCapacity() %></td>
-					<td><img src="<%= roomtype.getImageURL() %>" style="float:left;margin-right:10px"/></td>
-					<td><%= roomtype.getDescription() %></td>
+					<td><img src="<%=roomtype.getImageURL()%>"
+						style="float: left; margin-right: 10px" />
+						<%=roomtype.getTypename()%></td>
+					<td><%=roomtype.getPrice()%></td>
+					<td><%=roomtype.getCapacity()%></td>
+					<td><%=roomtype.getDescription()%></td>
 					<td>
 						<ul>
-						<% for(Facility facility : facilities) { %>
-							<li><%=facility.getFacilityconfig().getFacilityName() %></li>
-						<%} %>
+							<%
+								for (Facility facility : facilities) {
+							%>
+							<li><%=facility.getFacilityconfig().getFacilityName()%></li>
+							<%
+								}
+							%>
 						</ul>
 					</td>
-				<td>
-					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">View</a>
-				</td>
+					<td><select class="form-control" name="room">
+							<option></option>
+							<option>1 $<%=(1 * roomtype.getPrice()) %></option>
+							<option>2 $<%=(2 * roomtype.getPrice())%></option>
+							<option>3 $<%=(3 * roomtype.getPrice())%></option>
+							<option>4 $<%=(4 * roomtype.getPrice())%></option>
+							<option>5 $<%=(5 * roomtype.getPrice())%></option>
+					</select></td>
+					<td><button type="submit" name="roomtypeId" value="<%=roomtype.getId() %>"
+					class="btn btn-success">Reserve</button></td>
 				</tr>
-				<%} %>
+				<%
+					}
+				%>
 			</table>
 		</div>
 	</div>
+	</form>
 
 
 </body>

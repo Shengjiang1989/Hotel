@@ -62,6 +62,9 @@ public class HotelDAO {
 	}
 
 	public List<Hotel> getHotelBySearch(String city, String country) {
+		if(("").equals(country) && ("").equals(city)) {
+			return readAllHotel();
+		}
 		// TODO Auto-generated method stub
 		String scope = "select h from Hotel h where h.city = :city AND h.country = :country";
 		ArrayList<Object> paras = new ArrayList<Object>();
@@ -71,6 +74,12 @@ public class HotelDAO {
 		paramName.add("city");
 		paramName.add("country");
 		return this.baseDAO.query(scope, paramName, paras);
+	}
+
+	private List<Hotel> readAllHotel() {
+		// TODO Auto-generated method stub
+		String scope = "select h from Hotel h";
+		return this.baseDAO.query(scope, null, null);
 	}
 
 	public List<Hotel> getHotelBySearchByDate(String city, String country,

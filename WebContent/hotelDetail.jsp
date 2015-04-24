@@ -27,6 +27,7 @@
 			<a href="HotelList.jsp"><button type="button"
 					class="btn btn-link">return</button></a>
 		</div>
+		
 		</nav>
 	</div>
 	<label>&nbsp;&nbsp;&nbsp;</label>

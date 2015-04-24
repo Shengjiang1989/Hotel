@@ -63,6 +63,15 @@ public class UserManagementService {
 		else
 			return false;
 	}
+	public Boolean verifyAdmin(String username, String password) {
+		AdminDAO adminDAO = new AdminDAO();
+		Admin admin = adminDAO.readAdminByUsernameAndPassword(
+				username, password);
+		if (admin != null)
+			return true;
+		else
+			return false;
+	}
 
 	public List<Customer> updateCustomer(Customer customer) {
 		CustomerDAO customerDAO = new CustomerDAO();

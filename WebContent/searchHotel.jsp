@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"
-	import="edu.neu.cs5200.hotel.main.service.*, edu.neu.cs5200.hotel.main.entity.*, java.util.*"%>
+	import="edu.neu.cs5200.hotel.main.service.*, edu.neu.cs5200.hotel.main.entity.*, java.util.*, edu.neu.cs5200.hotel.main.dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,6 +10,12 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
 <body>
+<%
+	Customer customer = new Customer();
+	Integer cId = (Integer)request.getSession().getAttribute("customerId");
+	CustomerDAO customerDAO = new CustomerDAO();
+	customer = customerDAO.getCustomerById(cId);
+%>
 
 	<form action="searchHotel.jsp" class="form-inline">
 		<div class="header clearfix">
@@ -20,7 +26,7 @@
 			<div class="navbar-form navbar-right">
 				<button type="submit" name="action" value="search"
 					class="btn btn-success">Search</button>
-				<a href=""><button type="button" class="btn btn-link">logout</button></a>
+				<a href=""><button type="button" class="btn btn-link"><u><%=customer.getUsername() %></u></button></a>
 			</div>
 			</nav>
 		</div>
@@ -44,7 +50,7 @@
 					class="b-form-flexible-dates b-form-group b-form-group_subgroup ">
 					<div class="b-form-flexible-dates__toggler b-checkbox">
 						<label class="b-checkbox__container"> <input
-							class="b-checkbox__element" type="checkbox" name="idf"/> <span
+							class="b-checkbox__element" type="checkbox" name="idf" /> <span
 							class="b-checkbox__label"> I don't have specific dates yet
 						</span>
 						</label>
@@ -210,49 +216,51 @@
 					</div>
 
 				</div>
-				
-				
+
+
 			</div>
-			</div>
-			<div class="jumbotron">
-			<div class="container" class="row">
-			<div class="container">
-				<table class="table table-striped">
-			<tr>
-   		 		<th align = "center">Id</th>
-    			<th align = "center">Name</th>
-    			<th align = "center">City</th>
-    			<th align = "center">Country</th>
-    			<th align = "center">Description</th>
-    			<th align = "center">Action</th>
-    			<th align = "center">&nbsp;</th>
-  			</tr>
-		<%
-		HotelManagementService hms = new HotelManagementService();
-		List<Hotel> hotels = hms.getHotelBySearch(request);
-			for(Hotel hotel: hotels) 
-			{
-		%>
-			<tr>	 
-				<td><%=  hotel.getId()%></td>
-				<td><%=  hotel.getHotelName()%></td>
-				<td><%=  hotel.getCity()%></td>
-				<td><%=  hotel.getCountry()%></td>
-				<td><%=  hotel.getDescription()%></td>
-				<td>
-					<a href="hotelInfo.jsp?id=<%= hotel.getId() %>">View</a>
-				</td>
-				<td>
-					<a href="order.jsp?id=<%= hotel.getId() %>">Order</a>
-				</td>
-			</tr>
-		<%	
-			}
-		%>
-		</table>
 		</div>
+
+
+		<%
+			HotelManagementService hms = new HotelManagementService();
+			List<Hotel> hotels = hms.getHotelBySearch(request);
+			if (hotels != null && hotels.size() > 0) {
+		%>
+		<div class="jumbotron">
+			<div class="container" class="row">
+				<div class="container">
+					<table class="table table-striped">
+						<tr>
+							<th align="center">Id</th>
+							<th align="center">Name</th>
+							<th align="center">City</th>
+							<th align="center">Country</th>
+							<th align="center">Description</th>
+							<th align="center">Action</th>
+							<th align="center">&nbsp;</th>
+						</tr>
+						<%
+							for (Hotel hotel : hotels) {
+						%>
+
+						<tr>
+							<td><%=hotel.getId()%></td>
+							<td><%=hotel.getHotelName()%></td>
+							<td><%=hotel.getCity()%></td>
+							<td><%=hotel.getCountry()%></td>
+							<td><%=hotel.getDescription()%></td>
+							<td><a href="hotelInfo.jsp?id=<%=hotel.getId()%>">View</a>
+							</td>
+						</tr>
+						<%
+							}
+							}
+						%>
+					</table>
+				</div>
 			</div>
-			</div>
+		</div>
 	</form>
 
 

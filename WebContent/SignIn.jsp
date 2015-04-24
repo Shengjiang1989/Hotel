@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="edu.neu.cs5200.hotel.main.service.*, java.text.*,java.util.*"%>
+	pageEncoding="ISO-8859-1" import="edu.neu.cs5200.hotel.main.service.*, 
+	java.text.*,java.util.*, edu.neu.cs5200.hotel.main.dao.*, edu.neu.cs5200.hotel.main.entity.*"%>
 
 <html lang="en">
 <link rel="stylesheet"
@@ -37,22 +38,27 @@
 	<%
 	String signIn= request.getParameter("action");
 	String IfCustomer= request.getParameter("userType");
-  	String Username = request.getParameter("Username");
+  	String username = request.getParameter("Username");
   	String password = request.getParameter("password");
   	String userTpye = request.getParameter("userType");
   	UserManagementService userManagementService = new UserManagementService();
-  	Boolean ifExistCustomer  = userManagementService.verifyCustomer(Username,password);
-  	Boolean ifExistHoteluser  = userManagementService.verifyHoteluser(Username,password);
+  	Boolean ifExistCustomer  = userManagementService.verifyCustomer(username,password);
+  	Boolean ifExistHoteluser  = userManagementService.verifyHoteluser(username,password);
+  	Boolean ifExistAdmin  = userManagementService.verifyAdmin(username,password);
 //   	if(email != null && password != null) {
 //   		ifExist = userManagementService.verifyUser(email, password);
-//   	}
+//   	} 
 	if("Customer".equals(IfCustomer))
 	{
 		if("signIn".equals(signIn))
 		{
   			if(ifExistCustomer) 
   			{
-  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/searchHotel.jsp");
+  	  		CustomerDAO customerDAO = new CustomerDAO();
+			Customer customer = customerDAO.readCustomerByUsernameAndPassword(
+				username, password);
+  	  		request.getSession().setAttribute("customerId", customer.getId());
   	  		dispatcher.forward(request, response);
   			}
 		}
@@ -64,6 +70,17 @@
   			if(ifExistHoteluser) 
   			{
   	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/createHotel.jsp");
+  	  		dispatcher.forward(request, response);
+  			}
+		}
+	}
+	if("Admin".equals(IfCustomer))
+	{
+		if("signIn".equals(signIn))
+		{
+  			if(ifExistAdmin) 
+  			{
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/Admin.jsp");
   	  		dispatcher.forward(request, response);
   			}
 		}
@@ -88,9 +105,14 @@
 				<label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio1" value="HotelUser"> Hotel
 					User
-				</label> <label class="radio-inline"> <input type="radio"
+				</label> 
+				<label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio2" value="Customer">
 					Customer
+				</label> 
+				<label class="radio-inline"> <input type="radio"
+					name="userType" id="inlineRadio3" value="Admin">
+					Admin
 				</label> 
 			</div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit" name="action" value="signIn">Sign
