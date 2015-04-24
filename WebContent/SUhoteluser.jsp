@@ -20,16 +20,6 @@
 	hoteluser.setUsername(un);
 	hoteluser.setSsn(ssn);
 	hoteluser.setRegDate(new Date());
-// 	String str_date="2015-04-08";
-// 	DateFormat formatter ; 
-// 	Date date = new Date(); 
-// 	   formatter = new SimpleDateFormat("yyyy-MM-dd");
-// 	   try {
-// 		date = formatter.parse(str_date);
-// 	} catch (ParseException e) {
-// 		// TODO Auto-generated catch block
-// 		e.printStackTrace();
-// 	}
 	HoteluserDAO dao=new HoteluserDAO();
 	dao.createHoteluser(hoteluser);
 	}

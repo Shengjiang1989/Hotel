@@ -3,6 +3,11 @@ package edu.neu.cs5200.hotel.main.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 import edu.neu.cs5200.hotel.main.basedao.BaseDAO;
 import edu.neu.cs5200.hotel.main.entity.Customer;
 
@@ -106,6 +111,20 @@ public class CustomerDAO {
 			return customers.get(0);
 		return null;
 	}
+
+//	public Customer getCustomerByUsername(String username) {
+//		// TODO Auto-generated method stub
+//		String scope = "SELECT c FROM Customer c WHERE c.username = :username";
+//		ArrayList<String> paras = new ArrayList<String>();
+//		paras.add(username);
+//		ArrayList<String> paramName = new ArrayList<String>();
+//		paramName.add("username");
+//		List<Customer> customers = new ArrayList<Customer>();
+//		customers = baseDAO.query(scope, paramName, paras);
+//		if (customers.size() > 0)
+//			return customers.get(0);
+//		return null;
+//	}
 
 	public Customer updateCustomer(Customer customer) {
 		// TODO Auto-generated method stub
