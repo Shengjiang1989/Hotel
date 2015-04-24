@@ -45,5 +45,10 @@ public class HoteluserDAO {
 			return hotelusers.get(0);
 		return null;
 	}
+	
+	public List<Hoteluser> readAllHoteluser() {
+		String scope = "SELECT h FROM Hoteluser h";
+		return this.baseDAO.query(scope, null, null);
+	}
 
 }

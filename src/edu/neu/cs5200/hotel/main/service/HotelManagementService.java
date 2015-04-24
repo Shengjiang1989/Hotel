@@ -131,13 +131,12 @@ public class HotelManagementService {
 		hotel.setServices(services);
 		hotel.setAmenities(amenities);
 		hotel.setRoomtypes(roomTypes);
-		return createHotel(hotel);
+		return createHotel(hotel, (Integer)request.getSession().getAttribute("hoteluserId"));
 	}
 
-	public Hotel createHotel(Hotel hotel) {
-		HotelDAO hotelDAO = new HotelDAO();
+	public Hotel createHotel(Hotel hotel, int hoteluserId) {
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
-		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(1);
+		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hoteluserId);
 		hoteluser.addHotel(hotel);
 		hoteluserDAO.updateHoteluser(hoteluser);
 		return hotel;
@@ -146,7 +145,7 @@ public class HotelManagementService {
 	public List<Hotel> deleteHotel(int hotelId, int hoteluserId) {
 		HotelDAO hotelDAO = new HotelDAO();
 		Hotel hotel = hotelDAO.getHotelById(hotelId);
-		// hotelDAO.deleteHotel(hotel);
+		hotelDAO.deleteHotel(hotel);
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
 		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hoteluserId);
 		hoteluser.removeHotel(hotel);

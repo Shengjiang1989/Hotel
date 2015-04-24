@@ -88,10 +88,6 @@
   			}
 		}
 	}
-//   	else if(ifExist) {
-//   	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
-//   	  	dispatcher.forward(request, response);
-//   	}
   %>
 
 	<div class="container">
