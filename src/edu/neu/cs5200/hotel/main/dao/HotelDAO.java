@@ -66,7 +66,7 @@ public class HotelDAO {
 			return readAllHotel();
 		}
 		// TODO Auto-generated method stub
-		String scope = "select h from Hotel h where h.city = :city AND h.country = :country";
+		String scope = "select h from Hotel h where h.city = :city OR h.country = :country";
 		ArrayList<Object> paras = new ArrayList<Object>();
 		paras.add(city);
 		paras.add(country);

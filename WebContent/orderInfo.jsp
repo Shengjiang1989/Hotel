@@ -24,12 +24,14 @@
 		String checkinDate = request.getParameter("checkinDate");
 		String checkoutDate = request.getParameter("checkoutDate");
 		reservation.setCheckinDate(Conversion.string2Date(checkinDate));
-		reservation.setCheckinDate(Conversion.string2Date(checkoutDate));
+		reservation.setCheckoutDate(Conversion.string2Date(checkoutDate));
 		if (noGuest != "" && noGuest != null) {
 			reservation.setGuestNumber(Integer.parseInt(noGuest));
 		}
 		ReservationDAO reservationDAO = new ReservationDAO();
-		reservationDAO.createReservation(reservation);
+		//reservationDAO.createReservation(reservation);
+		customer.addReservation(reservation);
+		customerDAO.updateCustomer(customer);
 	%>
 	<div class="site-wrapper">
 

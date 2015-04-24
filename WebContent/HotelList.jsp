@@ -11,16 +11,18 @@
 <body>
 	<div align="left" class="container">
 		<%
+		List<Hotel> hotels = new ArrayList<Hotel>();
 		HotelManagementService hms = new HotelManagementService();
 		String action = request.getParameter("action");
-		String hotelId = request.getParameter("id");
-		String hoteluserId = request.getParameter("hoteluserId");
+		Integer hoteluserId = (Integer)request.getSession().getAttribute("hoteluserId");
+		String hotelId = request.getParameter("hotelId");
 		if("delete".equals(action)) {
-			if(hotelId != null && hotelId != "" && hoteluserId != null && hoteluserId != "") {
-				hms.deleteHotel(Integer.parseInt(hotelId), Integer.parseInt(hoteluserId));
+			if(hotelId != null && hotelId != "") {
+				hotels = hms.deleteHotel(Integer.parseInt(hotelId), hoteluserId);
 			}
+		}else {
+			hotels = hms.getAllHotels(hoteluserId);
 		}
-			List<Hotel> hotels = hms.getAllHotels(1);
 			
 
 		%>
@@ -47,7 +49,7 @@
 				<td><%=  hotel.getCountry()%></td>
 				<td><%=  hotel.getDescription()%></td>
 				<td>
-					<a href="HotelList.jsp?action=delete&&hoteluserId=1&id=<%= hotel.getId() %>">Delete</a>
+					<a href="HotelList.jsp?action=delete&hotelId=<%= hotel.getId() %>">Delete</a>
 				</td>
 				<td>
 					<a href="hotelDetail.jsp?id=<%= hotel.getId() %>">View</a>

@@ -22,7 +22,7 @@ import edu.neu.cs5200.hotel.main.entity.Serviceconfig;
 import edu.neu.cs5200.hotel.main.util.Conversion;
 
 public class HotelManagementService {
-	
+
 	public Hotel createHotelService(HttpServletRequest request) {
 		String name = request.getParameter("Name");
 		String city = request.getParameter("City");
@@ -48,7 +48,7 @@ public class HotelManagementService {
 		hotel.setState(state);
 		hotel.setHoteluser(ums.getHoteluserById(1));
 
-		/////////////////////// Service
+		// ///////////////////// Service
 		ServiceconfigDAO serviceconfigDAO = new ServiceconfigDAO();
 		List<Serviceconfig> serviceconfigs = serviceconfigDAO
 				.getAllServiceconfig();
@@ -67,7 +67,7 @@ public class HotelManagementService {
 			}
 		}
 
-		///////////////////////// Amenity
+		// /////////////////////// Amenity
 		AmenityconfigDAO amenityconfigDAO = new AmenityconfigDAO();
 		List<Amenityconfig> amenityconfigs = amenityconfigDAO
 				.getAllAmenityconfig();
@@ -89,7 +89,7 @@ public class HotelManagementService {
 			}
 		}
 
-		////////////////// RoomType
+		// //////////////// RoomType
 		List<Roomtype> roomTypes = new ArrayList<Roomtype>();
 		for (int i = 1; i <= 20; ++i) {
 			if (request.getParameter("typeName" + i) != null
@@ -101,18 +101,18 @@ public class HotelManagementService {
 				String image = request.getParameter("image" + i);
 				String typeDescription = request.getParameter("roomdescription"
 						+ i);
-				String[] facilitiesId = request
-						.getParameterValues("facility" + i);
+				String[] facilitiesId = request.getParameterValues("facility"
+						+ i);
 				List<Facility> facilities = new ArrayList<Facility>();
 				FacilityconfigDAO facilityconfigDAO = new FacilityconfigDAO();
-				if(facilitiesId!=null && facilitiesId.length > 0){
-				for (String fId : facilitiesId) {
-					Facility facility = new Facility();
-					facility.setFacilityconfig(facilityconfigDAO
-							.getFacilityById(Integer.parseInt(fId)));
-					facilities.add(facility);
-					facility.setRoomtype(roomtype);
-				}
+				if (facilitiesId != null && facilitiesId.length > 0) {
+					for (String fId : facilitiesId) {
+						Facility facility = new Facility();
+						facility.setFacilityconfig(facilityconfigDAO
+								.getFacilityById(Integer.parseInt(fId)));
+						facilities.add(facility);
+						facility.setRoomtype(roomtype);
+					}
 				}
 				if (capacity != null && capacity != "") {
 					roomtype.setCapacity(Integer.parseInt(capacity));
@@ -128,53 +128,52 @@ public class HotelManagementService {
 				roomTypes.add(roomtype);
 			}
 		}
-			hotel.setServices(services);
-			hotel.setAmenities(amenities);
-			hotel.setRoomtypes(roomTypes);
-			return createHotel(hotel);
+		hotel.setServices(services);
+		hotel.setAmenities(amenities);
+		hotel.setRoomtypes(roomTypes);
+		return createHotel(hotel, (Integer)request.getSession().getAttribute("hoteluserId"));
 	}
 
-	public Hotel createHotel(Hotel hotel) {
-		HotelDAO hotelDAO = new HotelDAO();
+	public Hotel createHotel(Hotel hotel, int hoteluserId) {
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
-		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(1);
+		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hoteluserId);
 		hoteluser.addHotel(hotel);
 		hoteluserDAO.updateHoteluser(hoteluser);
 		return hotel;
 	}
-	
+
 	public List<Hotel> deleteHotel(int hotelId, int hoteluserId) {
 		HotelDAO hotelDAO = new HotelDAO();
 		Hotel hotel = hotelDAO.getHotelById(hotelId);
-		//hotelDAO.deleteHotel(hotel);
+		hotelDAO.deleteHotel(hotel);
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
 		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hoteluserId);
 		hoteluser.removeHotel(hotel);
 		hoteluserDAO.updateHoteluser(hoteluser);
 		return hotelDAO.getAllHotel(hoteluserId);
 	}
-	
+
 	public List<Hotel> updateHotel(Hotel hotel) {
 		HotelDAO hotelDAO = new HotelDAO();
 		hotelDAO.updateHotel(hotel);
 		return hotelDAO.getAllHotel(hotel.getHoteluser().getId());
 	}
-	
+
 	public Hotel getHotelById(int id) {
 		HotelDAO hotelDAO = new HotelDAO();
 		return hotelDAO.getHotelById(id);
 	}
-	
+
 	public List<Hotel> getAllHotels(int hotelUserId) {
 		HotelDAO hotelDAO = new HotelDAO();
 		return hotelDAO.getAllHotel(hotelUserId);
 	}
-	
+
 	public List<Hotel> getHotelByName(String hotelName, int hotelUserId) {
 		HotelDAO hotelDAO = new HotelDAO();
 		return hotelDAO.getHotelByName(hotelName, hotelUserId);
 	}
-	
+
 	public List<Hotel> getHotelBySearch(HttpServletRequest request) {
 		HotelDAO hotelDAO = new HotelDAO();
 		String city = request.getParameter("city");
@@ -182,25 +181,32 @@ public class HotelManagementService {
 		String checkin_monthday = request.getParameter("checkin_monthday");
 		String checkin_year_month = request.getParameter("checkin_year_month");
 		String checkout_monthday = request.getParameter("checkout_monthday");
-		String checkout_year_month = request.getParameter("checkout_year_month");
+		String checkout_year_month = request
+				.getParameter("checkout_year_month");
 		String idf = request.getParameter("idf");
 		Date checkinDate = new Date();
 		Date checkoutDate = new Date();
-		if (checkin_monthday != null && checkin_year_month != null 
+		if (checkin_monthday != null && checkin_year_month != null
 				&& checkout_monthday != null && checkout_year_month != null) {
-		if (!"0".equals(checkin_monthday) && !"0".equals(checkin_year_month) 
-				&& !"0".equals(checkout_monthday) && !"0".equals(checkout_year_month)) {
-			checkinDate = Conversion.string2Date(checkin_year_month + "-" + checkin_monthday);
-			checkoutDate = Conversion.string2Date(checkout_year_month + "-" + checkout_monthday);
+			if (!"0".equals(checkin_monthday)
+					&& !"0".equals(checkin_year_month)
+					&& !"0".equals(checkout_monthday)
+					&& !"0".equals(checkout_year_month)) {
+				checkinDate = Conversion.string2Date(checkin_year_month + "-"
+						+ checkin_monthday);
+				checkoutDate = Conversion.string2Date(checkout_year_month + "-"
+						+ checkout_monthday);
+			}
 		}
-		}
-		if((idf != null && "on".equals(idf)) || "0".equals(checkin_monthday) ||
-				"0".equals(checkin_year_month) || "0".equals(checkout_monthday)
+		if ((idf != null && "on".equals(idf)) || "0".equals(checkin_monthday)
+				|| "0".equals(checkin_year_month)
+				|| "0".equals(checkout_monthday)
 				|| "0".equals(checkout_year_month)) {
 			return hotelDAO.getHotelBySearch(city, country);
-		}else {
-			return hotelDAO.getHotelBySearchByDate(city, country, checkinDate, checkoutDate);
+		} else {
+			return hotelDAO.getHotelBySearchByDate(city, country, checkinDate,
+					checkoutDate);
 		}
 	}
-	
+
 }

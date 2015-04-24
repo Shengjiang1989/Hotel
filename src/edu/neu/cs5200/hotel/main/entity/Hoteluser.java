@@ -1,7 +1,9 @@
 package edu.neu.cs5200.hotel.main.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class Hoteluser implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Hotel
-	@OneToMany(mappedBy="hoteluser")
+	@OneToMany(mappedBy="hoteluser", cascade = CascadeType.ALL)
 	private List<Hotel> hotels;
 
 	public Hoteluser() {

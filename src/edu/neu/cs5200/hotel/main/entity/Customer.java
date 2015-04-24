@@ -35,7 +35,7 @@ public class Customer implements Serializable {
 	private String username;
 
 	//bi-directional many-to-one association to Reservation
-	@OneToMany(mappedBy="customer")
+	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
 	private List<Reservation> reservations;
 
 
