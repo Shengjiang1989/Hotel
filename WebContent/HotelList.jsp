@@ -41,6 +41,7 @@
 		<%
 			for(Hotel hotel: hotels) 
 			{
+				
 		%>
 			<tr>	 
 				<td><%=  hotel.getId()%></td>

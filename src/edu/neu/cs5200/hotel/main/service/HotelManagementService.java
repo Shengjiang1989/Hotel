@@ -149,8 +149,9 @@ public class HotelManagementService {
 		HoteluserDAO hoteluserDAO = new HoteluserDAO();
 		Hoteluser hoteluser = hoteluserDAO.getHoteluserById(hoteluserId);
 		hoteluser.removeHotel(hotel);
-		hoteluserDAO.updateHoteluser(hoteluser);
-		return hotelDAO.getAllHotel(hoteluserId);
+		hoteluser = hoteluserDAO.updateHoteluser(hoteluser);
+		hoteluser.getEntityManager().refresh(this.getEntityManager().merge(entity));
+		return hoteluser.getHotels();
 	}
 
 	public List<Hotel> updateHotel(Hotel hotel) {

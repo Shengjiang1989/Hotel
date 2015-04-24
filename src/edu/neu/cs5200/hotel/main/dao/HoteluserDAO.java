@@ -21,8 +21,8 @@ public class HoteluserDAO {
 		baseDAO.create(hoteluser);
 	}
 	
-	public void updateHoteluser(Hoteluser hoteluser) {
-		baseDAO.update(hoteluser);
+	public Hoteluser updateHoteluser(Hoteluser hoteluser) {
+		return this.baseDAO.update(hoteluser);
 	}
 
 	public Hoteluser getHoteluserById(int hotelUserId) {
@@ -49,6 +49,12 @@ public class HoteluserDAO {
 	public List<Hoteluser> readAllHoteluser() {
 		String scope = "SELECT h FROM Hoteluser h";
 		return this.baseDAO.query(scope, null, null);
+	}
+	public void deleteHoteluserByUsername(Hoteluser hoteluser) 
+	{
+		// TODO Auto-generated method stub
+		hoteluser = baseDAO.getById(Hoteluser.class, hoteluser.getId());
+		baseDAO.delete(hoteluser);
 	}
 
 }

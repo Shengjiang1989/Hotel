@@ -32,7 +32,7 @@
 		Hoteluser hoteluser=Dao.getHoteluserById(idH);
 		Dao.deleteHoteluserByUsername(hoteluser);
 	}
-	List<Hoteluser> hotelusers=Dao.getAllHoteluser();
+	List<Hoteluser> hotelusers=Dao.readAllHoteluser();
 	
 	
 	%>
