@@ -5,7 +5,9 @@ package edu.neu.cs5200.hotel.test.service;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import edu.neu.cs5200.hotel.main.dao.CustomerDAO;
 import edu.neu.cs5200.hotel.main.entity.Customer;
@@ -36,5 +38,11 @@ public class UserManagementServiceTest {
 		CustomerDAO dao=new CustomerDAO();
 		dao.createCustomer(customer);
 //		ums.deleteCustomer(customer );
+		Customer customers = dao.readCustomerByUsernameAndPassword("Jue","12345");
+		List <Customer> cus=new ArrayList<Customer>();
+		cus.add(customers);
+		System.out.println(cus.size());
+		System.out.println(customer.getFirstName());
+		
 	}
 }

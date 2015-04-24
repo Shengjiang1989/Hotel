@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" import="edu.neu.cs5200.hotel.main.service.*"%>
+	pageEncoding="ISO-8859-1" import="edu.neu.cs5200.hotel.main.service.*, java.text.*,java.util.*"%>
 
 <html lang="en">
 <link rel="stylesheet"
@@ -35,44 +35,65 @@
 
 <body>
 	<%
-  	String email = request.getParameter("email");
+	String signIn= request.getParameter("action");
+	String IfCustomer= request.getParameter("userType");
+  	String Username = request.getParameter("Username");
   	String password = request.getParameter("password");
   	String userTpye = request.getParameter("userType");
   	UserManagementService userManagementService = new UserManagementService();
-  	Boolean ifExist  = false;
-  	if(email != null && password != null) {
-  		ifExist = userManagementService.verifyUser(email, password);
-  	}
-  	if(ifExist) {
-  	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
-  	  	dispatcher.forward(request, response);
-  	}
-  	else if(ifExist) {
-  	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
-  	  	dispatcher.forward(request, response);
-  	}
+  	Boolean ifExistCustomer  = userManagementService.verifyCustomer(Username,password);
+  	Boolean ifExistHoteluser  = userManagementService.verifyHoteluser(Username,password);
+//   	if(email != null && password != null) {
+//   		ifExist = userManagementService.verifyUser(email, password);
+//   	}
+	if("Customer".equals(IfCustomer))
+	{
+		if("signIn".equals(signIn))
+		{
+  			if(ifExistCustomer) 
+  			{
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
+  	  		dispatcher.forward(request, response);
+  			}
+		}
+	}
+	if("HotelUser".equals(IfCustomer))
+	{
+		if("signIn".equals(signIn))
+		{
+  			if(ifExistHoteluser) 
+  			{
+  	  		RequestDispatcher dispatcher = request.getRequestDispatcher("/createHotel.jsp");
+  	  		dispatcher.forward(request, response);
+  			}
+		}
+	}
+//   	else if(ifExist) {
+//   	  	RequestDispatcher dispatcher = request.getRequestDispatcher("/HotelList.jsp");
+//   	  	dispatcher.forward(request, response);
+//   	}
   %>
 
 	<div class="container">
 
 		<form class="form-signin">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<label for="inputEmail" class="sr-only">Email address</label> <input
-				name="email" type="email" id="inputEmail" class="form-control"
-				placeholder="Email address" required autofocus> <label
+			<label for="inputUsername" class="sr-only">Username</label> <input
+				name="Username" type="Username" id="inputUsername" class="form-control"
+				placeholder="Username" required autofocus> <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				name="password" type="password" id="inputPassword"
 				class="form-control" placeholder="Password" required>
 			<div class="checkbox">
 				<label class="radio-inline"> <input type="radio"
-					name="userType" id="inlineRadio1" value="Hotel User"> Hotel
+					name="userType" id="inlineRadio1" value="HotelUser"> Hotel
 					User
 				</label> <label class="radio-inline"> <input type="radio"
 					name="userType" id="inlineRadio2" value="Customer">
 					Customer
 				</label> 
 			</div>
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+			<button class="btn btn-lg btn-primary btn-block" type="submit" name="action" value="signIn">Sign
 				in</button>
 		</form>
 		<a href="signUp.jsp"><button type="button" 
