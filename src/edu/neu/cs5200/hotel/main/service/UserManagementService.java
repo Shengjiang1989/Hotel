@@ -54,6 +54,15 @@ public class UserManagementService {
 		else
 			return false;
 	}
+	public Boolean verifyHoteluser(String username, String password) {
+		HoteluserDAO hoteluserDAO = new HoteluserDAO();
+		Hoteluser hoteluser = hoteluserDAO.readHoteluserByUsernameAndPassword(
+				username, password);
+		if (hoteluser != null)
+			return true;
+		else
+			return false;
+	}
 
 	public List<Customer> updateCustomer(Customer customer) {
 		CustomerDAO customerDAO = new CustomerDAO();
