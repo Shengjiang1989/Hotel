@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Hotel detail</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 </head>
@@ -84,25 +84,19 @@
 						<h4>Hotel Services</h4>
 						<ul>
 							<% for(Service service : services) { %>
-							<li><%=service.getServiceconfig().getServiceName() %></li>
+							<li><%=service.getServiceconfig().getServiceName() %> <em><%=service.getIfcharge() %></em></li>
 							<%} %>
 						</ul>
-						<p>
-							<a class="btn btn-default" href="#" role="button">View
-								details &raquo;</a>
-						</p>
 					</div>
 					<div class="col-md-4">
 						<h4>Hotel Amenities</h4>
 						<ul>
 							<% for(Amenity amenity : amenities) { %>
-							<li><%=amenity.getAmenityconfig().getAmenityName() %></li>
+							<li><%=amenity.getAmenityconfig().getAmenityName() %> 
+								  <em><%=amenity.getIfCharge() %></em>
+								  <em><%=amenity.getOpenTime() %></em></li>
 							<%} %>
 						</ul>
-						<p>
-							<a class="btn btn-default" href="#" role="button">View
-								details &raquo;</a>
-						</p>
 					</div>
 				</div>
 
@@ -129,14 +123,27 @@
 				<tr>
 					<th>Name</th>
 					<th>Price</th>
-					<th>Capacity</th>
+					<th>Amount</th>
 					<th>Image</th>
 					<th>Description</th>
 					<th>Facilities</th>
 				</tr>
-				<% for(Roomtype roomtype : roomtypes) { %>
+				<% for(Roomtype roomtype : roomtypes) { 
+					List<Facility> facilities = roomtype.getFacility();
+				%>
 				<tr>
 					<td><%= roomtype.getTypename() %></td>
+					<td><%= roomtype.getPrice() %></td>
+					<td><%= roomtype.getCapacity() %></td>
+					<td><img src="<%= roomtype.getImageURL() %>" style="float:left;margin-right:10px"/></td>
+					<td><%= roomtype.getDescription() %></td>
+					<td>
+						<ul>
+						<% for(Facility facility : facilities) { %>
+							<li><%=facility.getFacilityconfig().getFacilityName() %></li>
+						<%} %>
+						</ul>
+					</td>
 				</tr>
 				<%} %>
 			</table>

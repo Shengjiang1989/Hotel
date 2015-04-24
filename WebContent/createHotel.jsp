@@ -210,7 +210,7 @@
 						<td><input type="text" name="image<%=i%>"
 							class="form-control" <%=request.getAttribute("disabled") %>></td>
 						<td><textarea class="form-control" rows="3"
-								name="roomdescription"<%=i%> class="form-control" <%=request.getAttribute("disabled") %>>
+								name="roomdescription<%=i%>" class="form-control" <%=request.getAttribute("disabled") %>>
 						</textarea></td>
 						<td><select multiple class="form-control"
 							name="facility<%=i%>" <%=request.getAttribute("disabled") %>>
