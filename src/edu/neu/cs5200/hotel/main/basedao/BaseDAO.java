@@ -29,6 +29,7 @@ public class BaseDAO<T> {
 	public T update(T object) {
 		em.getTransaction().begin();
 		em.merge(object);
+		em.flush();
 		em.getTransaction().commit();
 		return object;
 	}
@@ -37,6 +38,7 @@ public class BaseDAO<T> {
 		if (em.contains(object)) {
 			em.getTransaction().begin();
 			em.remove(object);
+			em.flush();
 			em.getTransaction().commit();
 			return true;
 		}else return false;

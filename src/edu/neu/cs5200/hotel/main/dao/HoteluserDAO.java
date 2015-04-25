@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.neu.cs5200.hotel.main.basedao.BaseDAO;
-import edu.neu.cs5200.hotel.main.entity.Customer;
 import edu.neu.cs5200.hotel.main.entity.Hoteluser;
 
 public class HoteluserDAO {

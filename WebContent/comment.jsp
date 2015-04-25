@@ -29,11 +29,11 @@
 			reservation = (Reservation)request.getSession().getAttribute("reservation");
 			String review = request.getParameter("review");
 			reservation.setReview(review);
-			//reservationDAO.updateReservation(reservation);
+			reservationDAO.updateReservation(reservation);
 			customer.addReservation(reservation);
-			customerDAO.updateCustomer(customer);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/customerProfile.jsp");
-			dispatcher.forward(request, response);
+			//customerDAO.updateCustomer(customer);
+			//RequestDispatcher dispatcher = request.getRequestDispatcher("/customerProfile.jsp");
+			//dispatcher.forward(request, response);
 		}else {
 		
 		

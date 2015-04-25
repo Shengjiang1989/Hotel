@@ -28,6 +28,7 @@
 		%>
 		<h1 align="center">Hotels</h1>
 		<a href="createHotel.jsp" type="button" class="btn btn-success pull-right">Create</a>
+		<a href="SignIn.jsp" >return</a>
 		<table class="table table-striped">
 			<tr>
    		 		<th align = "center">Id</th>
